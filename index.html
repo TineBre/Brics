@@ -7,7 +7,9 @@
 </head>
 
 <body onload="init()">
-    <canvas id="canvas" width="300" height="300" style="margin-left: 500px;"></canvas>
+    <canvas id="canvas" width="300" height="400" style="margin-left: 500px;"></canvas>
+    <p>Točke: <mark id="tocke">0</mark></p> <!-- Display points -->
+    <p>Čas: <span id="cas">00:00</span></p> <!-- Display timer -->
     <script>
         var x = 150;
         var y = 150;
@@ -37,6 +39,18 @@
         var BRICKHEIGHT;
         var PADDING;
 
+        var tocke; // Declare points variable
+
+        // Timer variables
+        var sekunde;
+        var sekundeI;
+        var minuteI;
+        var intTimer;
+        var izpisTimer;
+
+        // Flag to control timer start
+        var start = true;
+
         function init() {
             canvas = document.getElementById('canvas');
             ctx = canvas.getContext('2d');
@@ -54,6 +68,15 @@
 
             // Initialize bricks
             initbricks();
+
+            // Initialize points
+            tocke = 0;
+            $("#tocke").html(tocke); // Display points
+
+            // Initialize timer
+            sekunde = 0;
+            izpisTimer = "00:00";
+            $("#cas").html(izpisTimer); // Display initial timer
         }
 
         function draw() {
@@ -95,6 +118,8 @@
             if (y < NROWS * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
                 dy = -dy;
                 bricks[row][col] = 0;
+                tocke += 1; // Increase points
+                $("#tocke").html(tocke); // Update points display
             }
             if (x + dx > WIDTH - r || x + dx < 0 + r)
                 dx = -dx;
@@ -105,11 +130,25 @@
                     // Change the direction only if the ball hits the paddle
                     dy = -dy;
                     dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
+                    start = true; // Start the timer
                 } else if (y + dy > HEIGHT - r)
                     clearInterval(intervalId);
             }
             x += dx;
             y += dy;
+
+            // Timer
+            if (start == true) {
+                sekunde++;
+                sekundeI = ((sekundeI = (sekunde % 60)) > 9) ? sekundeI : "0" + sekundeI;
+                minuteI = ((minuteI = Math.floor(sekunde / 60)) > 9) ? minuteI : "0" + minuteI;
+                izpisTimer = minuteI + ":" + sekundeI;
+                $("#cas").html(izpisTimer);
+            } else {
+                sekunde = 0;
+                izpisTimer = "00:00";
+                $("#cas").html(izpisTimer);
+            }
         }
 
         function circle(x, y, r) {
@@ -152,15 +191,23 @@
         function init_mouse() {
             canvasMinX = $("canvas").offset().left;
             canvasMaxX = canvasMinX + WIDTH;
+
+            // Add mousemove event listener
+            $(document).on("mousemove", onMouseMove);
         }
 
         function onMouseMove(evt) {
             var mouseX = evt.pageX - canvasMinX;
             if (mouseX > 0 && mouseX < WIDTH) {
                 paddlex = mouseX - paddlew / 2;
+                // Ensure the paddle stays within the canvas boundaries
+                if (paddlex < 0) {
+                    paddlex = 0;
+                } else if (paddlex + paddlew > WIDTH) {
+                    paddlex = WIDTH - paddlew;
+                }
             }
         }
-        $(document).mousemove(onMouseMove);
 
         function initbricks() { //inicializacija opek - polnjenje v tabelo
             NROWS = 4;
