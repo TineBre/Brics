@@ -137,8 +137,17 @@
                 } else if (y + dy > HEIGHT - r)
                     clearInterval(intervalId);
             }
+
+            if(dx-dy>0){
+                dy=dy-(dy%dx)
+            }
+            if(dx+dy<6){
+                dx=dx-(dx%dy)
+            }
             x += dx;
             y += dy;
+
+
 
             // Timer
             if (start == true) {
@@ -216,7 +225,7 @@
             NROWS = 4;
             NCOLS = 5;
             BRICKWIDTH = (WIDTH / NCOLS) - 1;
-            BRICKHEIGHT = 15;
+            BRICKHEIGHT = 20;
             PADDING = 1;
             bricks = new Array(NROWS);
             for (i = 0; i < NROWS; i++) {
