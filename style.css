@@ -1,0 +1,13 @@
+.brics{
+    margin: auto;
+    border-style: solid;
+    width: 301px;
+}
+
+p{
+    font-size: large;
+}
+
+body{
+    background-color: rgb(148, 240, 240);
+}

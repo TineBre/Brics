@@ -2,14 +2,17 @@
 <html lang="sl">
 
 <head>
+    <link rel="stylesheet" href="style.css">
     <title>The bricks</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body onload="init()">
-    <canvas id="canvas" width="300" height="400" style="margin-left: 500px;"></canvas>
     <p>Točke: <mark id="tocke">0</mark></p> <!-- Display points -->
     <p>Čas: <span id="cas">00:00</span></p> <!-- Display timer -->
+    <div class="brics">
+        <canvas id="canvas" width="300" height="400"></canvas>
+    </div>
     <script>
         var x = 150;
         var y = 150;
