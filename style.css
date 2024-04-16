@@ -1,6 +1,7 @@
 .brics{
     margin: auto;
     border-style: solid;
+    border-color: brown;
     width: 301px;
 }
 
@@ -9,5 +10,5 @@ p{
 }
 
 body{
-    background-color: rgb(148, 240, 240);
+    background-color: rgb(252, 253, 167);
 }
