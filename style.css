@@ -14,7 +14,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     
-    background: linear-gradient(160deg, rgb(238, 224, 177) 10%, rgb(214, 204, 63) 110%);
+    background: linear-gradient(160deg, rgb(233, 204, 109) 10%, rgb(145, 123, 36) 110%);
 	background-repeat:no-repeat;
     border-radius: 5px;
 	border:rgb(82, 63, 0) 5px solid;
