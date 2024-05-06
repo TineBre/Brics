@@ -1,1 +1,1 @@
-# Brics
+https://tinebre.github.io/Brics/
